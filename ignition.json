@@ -1,0 +1,38 @@
+{
+    "ignition": {
+      "config": {},
+      "timeouts": {},
+      "version": "2.1.0"
+    },
+    "networkd": {},
+    "passwd": {
+        "users": [
+            {
+              "groups": [
+                "sudo",
+                "docker"
+              ],
+              "name": "core",
+              "sshAuthorizedKeys": [
+                "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAqA9tpLxi7igjHnnZzfLu57v4SAoVpA35eZme8wzrQsUdHjilbbr5+dcjI5MSaOMM0K1VBpNVa7d8tjZByKExTvK5dn+5/mRRLkvA+d4X56eqQeHjs81oUjNXLFyLJJ25rkr8qp+LPQTJn4tTT0rNraG9hzuWOncU7eTlJlYhPIcHRAwB5mXHrLBvS/mruwP44cvb0dDv0rFsd/P4PrIq7squKbgS5icApni6dF7eX9yQ98khxClIJhT1lfJYyEMl8+jRyxIn1R814Kcp+118FnvdFDk3uD2igE1rmF4TdZZEx4pMR3dLjMLiRQnvX9HWY4YUS1O4GkhPyYr1DAHkfw== rsa-key-20180522"
+              ]
+            }
+          ]
+    },
+    "storage": {
+      "files": [
+        {
+          "filesystem": "root",
+          "group": {},
+          "path": "/etc/hostname",
+          "user": {},
+          "contents": {
+            "source": "data:,tectonic",
+            "verification": {}
+          },
+          "mode": 420
+        }
+      ]
+    },
+    "systemd": {}
+  }
