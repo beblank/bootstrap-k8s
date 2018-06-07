@@ -6,11 +6,11 @@ sudo apt-get install -y docker.io curl unzip virtualbox-guest-utils
 
 
 curl --silent -L https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -o "terraform.zip"
-curl --silent -L https://github.com/coreos/terraform-providermatchbox/releases/download/v0.2.2/terraform-provider-matchboxv0.2.2-linux-amd64.tar.gz -o "terraform-provider-matchbox.tar.gz"
+curl --silent -L https://github.com/coreos/terraform-provider-matchbox/releases/download/v0.2.2/terraform-provider-matchboxv0.2.2-linux-amd64.tar.gz -o "terraform-provider-matchbox.tar.gz"
 unzip terraform.zip
 sudo cp terraform /usr/local/bin
 tar xzvf terraform-provider-matchbox.tar.gz
-sudo cp terraform-provider-matchbox-v0.2.2-linux-amd64/terraformprovider-matchbox /usr/local/bin
+sudo cp terraform-provider-matchbox-v0.2.2-linux-amd64/terraform-provider-matchbox /usr/local/bin
 
 ssh-keygen -t rsa -b 4096
 eval $(ssh-agent)
