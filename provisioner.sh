@@ -6,8 +6,7 @@ sudo apt-get install -y docker.io curl unzip virtualbox-guest-utils
 
 
 curl --silent -L https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip -o "terraform.zip"
-curl --silent -L https://github.com/coreos/terraform-providermatchbox/releases/download/v0.2.2/terraform-provider-matchboxv0.2.2-
-linux-amd64.tar.gz -o "terraform-provider-matchbox.tar.gz"
+curl --silent -L https://github.com/coreos/terraform-providermatchbox/releases/download/v0.2.2/terraform-provider-matchboxv0.2.2-linux-amd64.tar.gz -o "terraform-provider-matchbox.tar.gz"
 unzip terraform.zip
 sudo cp terraform /usr/local/bin
 tar xzvf terraform-provider-matchbox.tar.gz
@@ -18,7 +17,7 @@ eval $(ssh-agent)
 ssh-add ~/.ssh/id_rsa
 ssh-add -L
 
-export SAN=DNS.1:matchbox.example.com,IP.1:192.168.254.128
+export SAN=DNS.1:ubuntu,IP.1:192.168.209.208
 
 git clone https://github.com/coreos/matchbox
 
@@ -34,4 +33,4 @@ mkdir -p ~/.matchbox
 sudo rm ~/.matchbox/client.crt ~/.matchbox/client.key ~/.matchbox/ca.crt
 sudo cp ~/matchbox/scripts/tls/client.crt ~/matchbox/scripts/tls/client.key ~/matchbox/scripts/tls/ca.crt ~/.matchbox/
 
-sudo . ~/matchbox/scripts/get-coreos stable 1688.5.3 /var/lib/matchbox/assets
+sudo ~/matchbox/scripts/get-coreos stable 1688.5.3 /var/lib/matchbox/assets

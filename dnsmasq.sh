@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sudo docker run --rm --cap-add=NET_ADMIN --net=host quay.io/coreos/
-dnsmasq \
+sudo docker run --rm --cap-add=NET_ADMIN --net=host quay.io/coreos/dnsmasq \
 -d -q \
 --dhcp-range=192.168.254.100,192.168.254.130 \
 --enable-tftp --tftp-root=/var/lib/tftpboot \
