@@ -14,7 +14,7 @@
               ],
               "name": "core",
               "sshAuthorizedKeys": [
-                "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAqA9tpLxi7igjHnnZzfLu57v4SAoVpA35eZme8wzrQsUdHjilbbr5+dcjI5MSaOMM0K1VBpNVa7d8tjZByKExTvK5dn+5/mRRLkvA+d4X56eqQeHjs81oUjNXLFyLJJ25rkr8qp+LPQTJn4tTT0rNraG9hzuWOncU7eTlJlYhPIcHRAwB5mXHrLBvS/mruwP44cvb0dDv0rFsd/P4PrIq7squKbgS5icApni6dF7eX9yQ98khxClIJhT1lfJYyEMl8+jRyxIn1R814Kcp+118FnvdFDk3uD2igE1rmF4TdZZEx4pMR3dLjMLiRQnvX9HWY4YUS1O4GkhPyYr1DAHkfw== rsa-key-20180522"
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC0izKpKCsoxkPj7A8oQWvyIUPBiu+nImCIvWf+N0t7Sh5V4cDtpMvyZ8TjcgDJPrFbNo9nQ2igl/wVI62nowpvhpz63JTNOqXihHpnVggr/26BLjYaIUM4cA7viMmtGT8btViMLqlwUMzWK7xhd5bA7Zj6A57pTTJrTK0tGs6V+mFQgKC963E5oyXE+MV4PmXqOddUfWAVYMs7Mv4XIk9xbn9EsGKXqBkFKTT8gjp/Ww/c9exwaKl/QUIZ4K8sKyEf1afDOLfNF6NLXjDsPyX5tbhrOXYVQWymq64TAzQAAathgM/gjhk+sIjiOHh1INGEEATVZ7I1ZblFdW2XKT+++pp2kjlKkpP4Hu/z/bIjJ4UDEEFZoiXsm0wzMGWeE9/fzCvIep4HZOtclnZatMN4Lt3Q8YQvUIWtFhGIlUL422LG76vJsq3HI3OHrpifZ/ADsMaU9vMjW7EuA7/kDoy4JJHbza1/HBClUysnFXhOYlD2f21+BxHYaQCpETXXJmhQPYSTTN9EIvzysBvD/3OxjzFFeI+HxTD5YutZo/8JTvqsl4YvXjL+C0O4TGZs/zrB8Eap/3Frn96EiybCjLy4jM4uwtiBw7MMmxD+dp3f1makbmrh2JqqnczK4vpFU7YMA9nttXjF+aqwrSTMQ6P9GuGNxkWzQYhjUEky5vnwPQ== adit@adits-MacBook-Pro.local"
               ]
             }
           ]
