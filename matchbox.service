@@ -9,14 +9,13 @@ Environment="MATCHBOX_ADDRESS=0.0.0.0:8080"
 Environment="MATCHBOX_RPC_ADDRESS=0.0.0.0:8081"
 Environment="MATCHBOX_LOG_LEVEL=debug"
 ExecStart=/usr/bin/docker run \
-  --net=host \
-  --inherit-env \
-  --trust-keys-from-https \
-  --mount volume=data,target=/var/lib/matchbox \
-  --mount volume=config,target=/etc/matchbox \
-  --volume data,kind=host,source=/var/lib/matchbox \
-  --volume config,kind=host,source=/etc/matchbox \
-  ${IMAGE}:${VERSION}
+ --net=host \
+  --rm -v /var/lib/matchbox:/var/lib/matchbox:Z \
+  -v /etc/matchbox:/etc/matchbox:Z,ro \
+  ${IMAGE}:${VERSION} \
+  -address=${MATCHBOX_ADDRESS} \
+  -rpc-address=${MATCHBOX_RPC_ADDRESS} \
+  -log-level=${MATCHBOX_LOG_LEVEL}
 
 [Install]
 WantedBy=multi-user.target
