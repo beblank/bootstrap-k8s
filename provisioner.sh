@@ -26,6 +26,7 @@ cd ~/matchbox/scripts/tls/
 . ~/matchbox/scripts/tls/cert-gen
 #Move TLS credentials to the matchbox server's default location.
 sudo mkdir -p /etc/matchbox
+sudo mkdir -p /var/lib/matchbox/assets
 #sudo rm /etc/matchbox/ca.crt /etc/matchbox/server.crt /etc/matchbox/server.key
 sudo cp ~/matchbox/scripts/tls/ca.crt ~/matchbox/scripts/tls/server.crt ~/matchbox/scripts/tls/server.key /etc/matchbox
 #Save client.crt, client.key, and ca.crt for later use (e.g.~/.matchbox).
