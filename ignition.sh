@@ -1,5 +1,6 @@
 #!/bin/bash
 #-ex
+echo "Type the your mac address"
 read MAC
 DASHMAC = ${MAC//:/-}
 curl --retry 10 "http://192.168.254.144:8080/ignition?mac=$DASHMAC&os=installed" -o ignition.json
