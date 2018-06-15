@@ -1,0 +1,135 @@
+{
+    "ignition":{
+       "config":{
+ 
+       },
+       "timeouts":{
+ 
+       },
+       "version":"2.1.0"
+    },
+    "networkd":{
+ 
+    },
+    "passwd":{
+       "users":[
+          {
+             "name":"core",
+             "sshAuthorizedKeys":[
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHXZgWbCBJBLw4fTtgcwE9M+HBPFUb9f4QFJlbe18a4ZBexsuhdkxxNsc/J45PW/KYXFS6TV3U5L5SZuRwEvoj+EcKORycEqz6K4pEOIeXea0t8bLWDts2H3Tu5onMaUxTGLpAVmviQAEntB442JItwlKS+XfQuGBdodNJggvqpjTlu1eR4s5hkNpxmUKMqjnKvgMDv7YT1nbtZcBJY+4w0tM4ODOtno+we3+T+Wj9DvQOIzYUCocCRB+XgAZNfw8c/vIKU6jE1R1s+cqOygvEjegE7dnfNMD/4FxYjiLzhQ2U8w0NhXKdInTeLZ+gKNALdvZjuEzvr3I+eLXcdAJyTiOJeYqRCKNGx/SNjCJMpfEgAXeaicTfTGscmOLhwycTG7o6POwMqSSF/FATYkj2kny8yxJMWG2pDG8Mv/PMJ66xi4MI6LFjHYDRk9/xA8xBRZwHxTR7oDtxlCslZMjjP+MRw9UCwJv0mfEk0hbJyMWM8X0d+asNhE99gvcUQi8KpKoLhzcxlcQmFFtx68I3BPJclP+VoWaKtaYgK6hcb0Or5wp6FCoyBcTJTxKisiKQmegC4OuqLmovEWAAsOZYoq8CyIrEBH3xKjwCWDhkQsLZlbVVaw7afr08Y6ZoP+ZFOOYYKpjxn+9lQ1DtgSAt2I2VrGBC0HXUI/LouZN36w== adit@adit"
+             ]
+          }
+       ]
+    },
+    "storage":{
+       "files":[
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/kubernetes/kubelet.env",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,KUBELET_IMAGE_URL%3Ddocker%3A%2F%2Fk8s.gcr.io%2Fhyperkube%0AKUBELET_IMAGE_TAG%3Dv1.10.3%0A",
+                "verification":{
+ 
+                }
+             },
+             "mode":420
+          },
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/hostname",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,node1.example.com",
+                "verification":{
+ 
+                }
+             },
+             "mode":420
+          },
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/sysctl.d/max-user-watches.conf",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,fs.inotify.max_user_watches%3D16184%0A",
+                "verification":{
+ 
+                }
+             }
+          },
+          {
+             "filesystem":"root",
+             "group":{
+                "id":500
+             },
+             "path":"/opt/bootkube/bootkube-start",
+             "user":{
+                "id":500
+             },
+             "contents":{
+                "source":"data:,%23!%2Fbin%2Fbash%0A%23%20Wrapper%20for%20bootkube%20start%0Aset%20-e%0A%23%20Move%20experimental%20manifests%0A%5B%20-n%20%22%24(ls%20%2Fopt%2Fbootkube%2Fassets%2Fmanifests-*%2F*%202%3E%2Fdev%2Fnull)%22%20%5D%20%26%26%20mv%20%2Fopt%2Fbootkube%2Fassets%2Fmanifests-*%2F*%20%2Fopt%2Fbootkube%2Fassets%2Fmanifests%20%26%26%20rm%20-rf%20%2Fopt%2Fbootkube%2Fassets%2Fmanifests-*%0ABOOTKUBE_ACI%3D%22%24%7BBOOTKUBE_ACI%3A-quay.io%2Fcoreos%2Fbootkube%7D%22%0ABOOTKUBE_VERSION%3D%22%24%7BBOOTKUBE_VERSION%3A-v0.12.0%7D%22%0ABOOTKUBE_ASSETS%3D%22%24%7BBOOTKUBE_ASSETS%3A-%2Fopt%2Fbootkube%2Fassets%7D%22%0Aexec%20%2Fusr%2Fbin%2Frkt%20run%20%5C%0A%20%20--trust-keys-from-https%20%5C%0A%20%20--volume%20assets%2Ckind%3Dhost%2Csource%3D%24BOOTKUBE_ASSETS%20%5C%0A%20%20--mount%20volume%3Dassets%2Ctarget%3D%2Fassets%20%5C%0A%20%20--volume%20bootstrap%2Ckind%3Dhost%2Csource%3D%2Fetc%2Fkubernetes%20%5C%0A%20%20--mount%20volume%3Dbootstrap%2Ctarget%3D%2Fetc%2Fkubernetes%20%5C%0A%20%20%24RKT_OPTS%20%5C%0A%20%20%24%7BBOOTKUBE_ACI%7D%3A%24%7BBOOTKUBE_VERSION%7D%20%5C%0A%20%20--net%3Dhost%20%5C%0A%20%20--dns%3Dhost%20%5C%0A%20%20--exec%3D%2Fbootkube%20--%20start%20--asset-dir%3D%2Fassets%20%22%24%40%22%0A",
+                "verification":{
+ 
+                }
+             },
+             "mode":356
+          }
+       ]
+    },
+    "systemd":{
+       "units":[
+          {
+             "dropins":[
+                {
+                   "contents":"[Service]\nEnvironment=\"ETCD_IMAGE_TAG=v3.3.5\"\nEnvironment=\"ETCD_NAME=node1\"\nEnvironment=\"ETCD_ADVERTISE_CLIENT_URLS=https://node1.example.com:2379\"\nEnvironment=\"ETCD_INITIAL_ADVERTISE_PEER_URLS=https://node1.example.com:2380\"\nEnvironment=\"ETCD_LISTEN_CLIENT_URLS=https://0.0.0.0:2379\"\nEnvironment=\"ETCD_LISTEN_PEER_URLS=https://0.0.0.0:2380\"\nEnvironment=\"ETCD_LISTEN_METRICS_URLS=http://0.0.0.0:2381\"\nEnvironment=\"ETCD_INITIAL_CLUSTER=node1=https://node1.example.com:2380\"\nEnvironment=\"ETCD_STRICT_RECONFIG_CHECK=true\"\nEnvironment=\"ETCD_SSL_DIR=/etc/ssl/etcd\"\nEnvironment=\"ETCD_TRUSTED_CA_FILE=/etc/ssl/certs/etcd/server-ca.crt\"\nEnvironment=\"ETCD_CERT_FILE=/etc/ssl/certs/etcd/server.crt\"\nEnvironment=\"ETCD_KEY_FILE=/etc/ssl/certs/etcd/server.key\"\nEnvironment=\"ETCD_CLIENT_CERT_AUTH=true\"\nEnvironment=\"ETCD_PEER_TRUSTED_CA_FILE=/etc/ssl/certs/etcd/peer-ca.crt\"\nEnvironment=\"ETCD_PEER_CERT_FILE=/etc/ssl/certs/etcd/peer.crt\"\nEnvironment=\"ETCD_PEER_KEY_FILE=/etc/ssl/certs/etcd/peer.key\"\nEnvironment=\"ETCD_PEER_CLIENT_CERT_AUTH=true\"\n",
+                   "name":"40-etcd-cluster.conf"
+                }
+             ],
+             "enable":true,
+             "name":"etcd-member.service"
+          },
+          {
+             "enable":true,
+             "name":"docker.service"
+          },
+          {
+             "mask":true,
+             "name":"locksmithd.service"
+          },
+          {
+             "contents":"[Unit]\nDescription=Watch for kubeconfig\n[Path]\nPathExists=/etc/kubernetes/kubeconfig\n[Install]\nWantedBy=multi-user.target\n",
+             "enable":true,
+             "name":"kubelet.path"
+          },
+          {
+             "contents":"[Unit]\nDescription=Wait for DNS entries\nWants=systemd-resolved.service\nBefore=kubelet.service\n[Service]\nType=oneshot\nRemainAfterExit=true\nExecStart=/bin/sh -c 'while ! /usr/bin/grep '^[^#[:space:]]' /etc/resolv.conf \u003e /dev/null; do sleep 1; done'\n[Install]\nRequiredBy=kubelet.service\nRequiredBy=etcd-member.service\n",
+             "enable":true,
+             "name":"wait-for-dns.service"
+          },
+          {
+             "contents":"[Unit]\nDescription=Kubelet via Hyperkube\nWants=rpc-statd.service\n[Service]\nEnvironmentFile=/etc/kubernetes/kubelet.env\nEnvironment=\"RKT_RUN_ARGS=--uuid-file-save=/var/cache/kubelet-pod.uuid \\\n  --volume=resolv,kind=host,source=/etc/resolv.conf \\\n  --mount volume=resolv,target=/etc/resolv.conf \\\n  --volume var-lib-cni,kind=host,source=/var/lib/cni \\\n  --mount volume=var-lib-cni,target=/var/lib/cni \\\n  --volume var-lib-calico,kind=host,source=/var/lib/calico \\\n  --mount volume=var-lib-calico,target=/var/lib/calico \\\n  --volume opt-cni-bin,kind=host,source=/opt/cni/bin \\\n  --mount volume=opt-cni-bin,target=/opt/cni/bin \\\n  --volume var-log,kind=host,source=/var/log \\\n  --mount volume=var-log,target=/var/log \\\n  --insecure-options=image\"\nExecStartPre=/bin/mkdir -p /opt/cni/bin\nExecStartPre=/bin/mkdir -p /etc/kubernetes/manifests\nExecStartPre=/bin/mkdir -p /etc/kubernetes/cni/net.d\nExecStartPre=/bin/mkdir -p /etc/kubernetes/checkpoint-secrets\nExecStartPre=/bin/mkdir -p /etc/kubernetes/inactive-manifests\nExecStartPre=/bin/mkdir -p /var/lib/cni\nExecStartPre=/bin/mkdir -p /var/lib/calico\nExecStartPre=/bin/mkdir -p /var/lib/kubelet/volumeplugins\nExecStartPre=/usr/bin/bash -c \"grep 'certificate-authority-data' /etc/kubernetes/kubeconfig | awk '{print $2}' | base64 -d \u003e /etc/kubernetes/ca.crt\"\nExecStartPre=-/usr/bin/rkt rm --uuid-file=/var/cache/kubelet-pod.uuid\nExecStart=/usr/lib/coreos/kubelet-wrapper \\\n  --allow-privileged \\\n  --anonymous-auth=false \\\n  --authentication-token-webhook \\\n  --authorization-mode=Webhook \\\n  --client-ca-file=/etc/kubernetes/ca.crt \\\n  --cluster_dns=10.3.0.10 \\\n  --cluster_domain=cluster.local \\\n  --cni-conf-dir=/etc/kubernetes/cni/net.d \\\n  --exit-on-lock-contention \\\n  --hostname-override=node1.example.com \\\n  --kubeconfig=/etc/kubernetes/kubeconfig \\\n  --lock-file=/var/run/lock/kubelet.lock \\\n  --network-plugin=cni \\\n  --node-labels=node-role.kubernetes.io/master \\\n  --node-labels=node-role.kubernetes.io/controller=\"true\" \\\n  --pod-manifest-path=/etc/kubernetes/manifests \\\n  --register-with-taints=node-role.kubernetes.io/master=:NoSchedule \\\n  --volume-plugin-dir=/var/lib/kubelet/volumeplugins\nExecStop=-/usr/bin/rkt stop --uuid-file=/var/cache/kubelet-pod.uuid\nRestart=always\nRestartSec=10\n[Install]\nWantedBy=multi-user.target\n",
+             "name":"kubelet.service"
+          },
+          {
+             "contents":"[Unit]\nDescription=Bootstrap a Kubernetes control plane with a temp api-server\nConditionPathExists=!/opt/bootkube/init_bootkube.done\n[Service]\nType=oneshot\nRemainAfterExit=true\nWorkingDirectory=/opt/bootkube\nExecStart=/opt/bootkube/bootkube-start\nExecStartPost=/bin/touch /opt/bootkube/init_bootkube.done\n",
+             "name":"bootkube.service"
+          }
+       ]
+    }
+ }

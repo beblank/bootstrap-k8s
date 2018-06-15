@@ -1,0 +1,104 @@
+{
+    "ignition":{
+       "config":{
+ 
+       },
+       "timeouts":{
+ 
+       },
+       "version":"2.1.0"
+    },
+    "networkd":{
+ 
+    },
+    "passwd":{
+       "users":[
+          {
+             "name":"core",
+             "sshAuthorizedKeys":[
+                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHXZgWbCBJBLw4fTtgcwE9M+HBPFUb9f4QFJlbe18a4ZBexsuhdkxxNsc/J45PW/KYXFS6TV3U5L5SZuRwEvoj+EcKORycEqz6K4pEOIeXea0t8bLWDts2H3Tu5onMaUxTGLpAVmviQAEntB442JItwlKS+XfQuGBdodNJggvqpjTlu1eR4s5hkNpxmUKMqjnKvgMDv7YT1nbtZcBJY+4w0tM4ODOtno+we3+T+Wj9DvQOIzYUCocCRB+XgAZNfw8c/vIKU6jE1R1s+cqOygvEjegE7dnfNMD/4FxYjiLzhQ2U8w0NhXKdInTeLZ+gKNALdvZjuEzvr3I+eLXcdAJyTiOJeYqRCKNGx/SNjCJMpfEgAXeaicTfTGscmOLhwycTG7o6POwMqSSF/FATYkj2kny8yxJMWG2pDG8Mv/PMJ66xi4MI6LFjHYDRk9/xA8xBRZwHxTR7oDtxlCslZMjjP+MRw9UCwJv0mfEk0hbJyMWM8X0d+asNhE99gvcUQi8KpKoLhzcxlcQmFFtx68I3BPJclP+VoWaKtaYgK6hcb0Or5wp6FCoyBcTJTxKisiKQmegC4OuqLmovEWAAsOZYoq8CyIrEBH3xKjwCWDhkQsLZlbVVaw7afr08Y6ZoP+ZFOOYYKpjxn+9lQ1DtgSAt2I2VrGBC0HXUI/LouZN36w== adit@adit"
+             ]
+          }
+       ]
+    },
+    "storage":{
+       "files":[
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/kubernetes/kubelet.env",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,KUBELET_IMAGE_URL%3Ddocker%3A%2F%2Fk8s.gcr.io%2Fhyperkube%0AKUBELET_IMAGE_TAG%3Dv1.10.3%0A",
+                "verification":{
+ 
+                }
+             },
+             "mode":420
+          },
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/hostname",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,node2.example.com",
+                "verification":{
+ 
+                }
+             },
+             "mode":420
+          },
+          {
+             "filesystem":"root",
+             "group":{
+ 
+             },
+             "path":"/etc/sysctl.d/max-user-watches.conf",
+             "user":{
+ 
+             },
+             "contents":{
+                "source":"data:,fs.inotify.max_user_watches%3D16184%0A",
+                "verification":{
+ 
+                }
+             }
+          }
+       ]
+    },
+    "systemd":{
+       "units":[
+          {
+             "enable":true,
+             "name":"docker.service"
+          },
+          {
+             "mask":true,
+             "name":"locksmithd.service"
+          },
+          {
+             "contents":"[Unit]\nDescription=Watch for kubeconfig\n[Path]\nPathExists=/etc/kubernetes/kubeconfig\n[Install]\nWantedBy=multi-user.target\n",
+             "enable":true,
+             "name":"kubelet.path"
+          },
+          {
+             "contents":"[Unit]\nDescription=Wait for DNS entries\nWants=systemd-resolved.service\nBefore=kubelet.service\n[Service]\nType=oneshot\nRemainAfterExit=true\nExecStart=/bin/sh -c 'while ! /usr/bin/grep '^[^#[:space:]]' /etc/resolv.conf \u003e /dev/null; do sleep 1; done'\n[Install]\nRequiredBy=kubelet.service\n",
+             "enable":true,
+             "name":"wait-for-dns.service"
+          },
+          {
+             "contents":"[Unit]\nDescription=Kubelet via Hyperkube\nWants=rpc-statd.service\n[Service]\nEnvironmentFile=/etc/kubernetes/kubelet.env\nEnvironment=\"RKT_RUN_ARGS=--uuid-file-save=/var/cache/kubelet-pod.uuid \\\n  --volume=resolv,kind=host,source=/etc/resolv.conf \\\n  --mount volume=resolv,target=/etc/resolv.conf \\\n  --volume var-lib-cni,kind=host,source=/var/lib/cni \\\n  --mount volume=var-lib-cni,target=/var/lib/cni \\\n  --volume var-lib-calico,kind=host,source=/var/lib/calico \\\n  --mount volume=var-lib-calico,target=/var/lib/calico \\\n  --volume opt-cni-bin,kind=host,source=/opt/cni/bin \\\n  --mount volume=opt-cni-bin,target=/opt/cni/bin \\\n  --volume var-log,kind=host,source=/var/log \\\n  --mount volume=var-log,target=/var/log \\\n  --insecure-options=image\"\nExecStartPre=/bin/mkdir -p /opt/cni/bin\nExecStartPre=/bin/mkdir -p /etc/kubernetes/manifests\nExecStartPre=/bin/mkdir -p /etc/kubernetes/cni/net.d\nExecStartPre=/bin/mkdir -p /var/lib/cni\nExecStartPre=/bin/mkdir -p /var/lib/calico\nExecStartPre=/bin/mkdir -p /var/lib/kubelet/volumeplugins\nExecStartPre=/usr/bin/bash -c \"grep 'certificate-authority-data' /etc/kubernetes/kubeconfig | awk '{print $2}' | base64 -d \u003e /etc/kubernetes/ca.crt\"\nExecStartPre=-/usr/bin/rkt rm --uuid-file=/var/cache/kubelet-pod.uuid\nExecStart=/usr/lib/coreos/kubelet-wrapper \\\n  --allow-privileged \\\n  --anonymous-auth=false \\\n  --authentication-token-webhook \\\n  --authorization-mode=Webhook \\\n  --client-ca-file=/etc/kubernetes/ca.crt \\\n  --cluster_dns=10.3.0.10 \\\n  --cluster_domain=cluster.local \\\n  --cni-conf-dir=/etc/kubernetes/cni/net.d \\\n  --exit-on-lock-contention \\\n  --hostname-override=node2.example.com \\\n  --kubeconfig=/etc/kubernetes/kubeconfig \\\n  --lock-file=/var/run/lock/kubelet.lock \\\n  --network-plugin=cni \\\n  --node-labels=node-role.kubernetes.io/node \\\n  --pod-manifest-path=/etc/kubernetes/manifests \\\n  --volume-plugin-dir=/var/lib/kubelet/volumeplugins\nExecStop=-/usr/bin/rkt stop --uuid-file=/var/cache/kubelet-pod.uuid\nRestart=always\nRestartSec=5\n[Install]\nWantedBy=multi-user.target\n",
+             "name":"kubelet.service"
+          }
+       ]
+    }
+ }
