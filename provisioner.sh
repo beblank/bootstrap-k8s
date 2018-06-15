@@ -17,7 +17,7 @@ eval $(ssh-agent)
 ssh-add ~/.ssh/id_rsa
 ssh-add -L
 
-export SAN=DNS.1:ubuntu,IP.1:192.168.209.208
+export SAN=DNS.1:adit,IP.1:192.168.254.144
 
 git clone https://github.com/coreos/matchbox
 
